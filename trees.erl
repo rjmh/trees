@@ -46,3 +46,15 @@ prop_insert() ->
                 conjunction([{ordered,ordered(L)},
                              {elements,L==lists:umerge([X],to_list(T))}]))
     end).
+
+prop_delete() ->
+  ?FORALL({X,T},{nat(),tree()},
+    begin
+      L = to_list(delete(X,T)),
+      ?WHENFAIL(io:format("L: ~p\n",[L]),
+                conjunction([{ordered,ordered(L)},
+                             {elements,L==lists:delete(X,to_list(T))}]))
+    end).
+
+delete(_,leaf) ->
+  leaf.
