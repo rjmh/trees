@@ -44,5 +44,5 @@ prop_insert() ->
       L = to_list(insert(X,T)),
       ?WHENFAIL(io:format("L: ~p\n",[L]),
                 conjunction([{ordered,ordered(L)},
-                             {elements,L==lists:merge([X],to_list(T))}]))
+                             {elements,L==lists:umerge([X],to_list(T))}]))
     end).
