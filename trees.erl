@@ -55,7 +55,7 @@ member(X,{node,L,Y,R}) ->
      X==Y ->
       true;
      X>Y ->
-      member(X,L)
+      member(X,R)
   end.
 
 prop_member() ->
