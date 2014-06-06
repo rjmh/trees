@@ -13,7 +13,7 @@ prop_ordered() ->
           ordered(to_list(T))).
 
 ordered(Xs) ->
-  lists:sort(Xs) == Xs.
+  lists:usort(Xs) == Xs.
 
 tree() ->
   ?SIZED(Size,tree(-Size,Size)).
@@ -26,3 +26,8 @@ tree(Lo, Hi) ->
                    ?LET(X,choose(Lo,Hi),
                         {node,tree(Lo,X-1),X,tree(X+1,Hi)}),
                    [leaf])}]).
+
+insert(X,leaf) ->
+  {node,leaf,X,leaf};
+insert(X,{node,L,Y,R}) ->
+  leaf.
