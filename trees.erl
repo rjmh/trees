@@ -48,13 +48,16 @@ prop_insert() ->
     end).
 
 prop_delete() ->
-  ?FORALL({X,T},{nat(),tree()},
+  ?FORALL(T,tree(),
+          ?IMPLIES(T/=leaf,
+                   ?FORALL(X,elements(to_list(T)),
     begin
       L = to_list(delete(X,T)),
       ?WHENFAIL(io:format("L: ~p\n",[L]),
-                conjunction([{ordered,ordered(L)},
-                             {elements,L==lists:delete(X,to_list(T))}]))
-    end).
+                collect(with_title("present"),lists:member(X,to_list(T)),
+                        conjunction([{ordered,ordered(L)},
+                                     {elements,L==lists:delete(X,to_list(T))}])))
+    end))).
 
 delete(_,leaf) ->
   leaf;
