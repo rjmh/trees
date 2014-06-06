@@ -38,4 +38,8 @@ insert(X,{node,L,Y,R}) ->
 
 prop_insert() ->
   ?FORALL({X,T},{nat(),tree()},
-          ordered(to_list(insert(X,T)))).
+    begin
+      L = to_list(insert(X,T)),
+      ?WHENFAIL(io:format("L: ~p\n",[L]),
+                ordered(L))
+    end).
