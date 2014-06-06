@@ -64,5 +64,12 @@ delete(X,{node,L,Y,R}) ->
      X>Y ->
       {node,L,Y,delete(X,R)};
      X==Y ->
-      R
+      merge(L,R)
   end.
+
+merge(leaf,R) ->
+  R;
+merge(L,leaf) ->
+  L;
+merge({node,L,X,R},T) ->
+  {node,L,X,merge(R,T)}.
