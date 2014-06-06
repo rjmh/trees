@@ -64,5 +64,5 @@ delete(X,{node,L,Y,R}) ->
      X>Y ->
       {node,L,Y,delete(X,R)};
      X==Y ->
-      L
+      R
   end.
