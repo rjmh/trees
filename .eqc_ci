@@ -1,2 +1,2 @@
 {build,"erl -make"}.
-{testpath,"."}.
+{test_path,"."}.
