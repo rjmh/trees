@@ -47,6 +47,21 @@ prop_insert() ->
                              {elements,L==lists:umerge([X],to_list(T))}]))
     end).
 
+member(X,leaf) ->
+  false;
+member(X,{node,L,Y,R}) ->
+  if X<Y ->
+      member(X,R);
+     X==Y ->
+      true;
+     X>Y ->
+      membere(X,L)
+  end.
+
+prop_member() ->
+  ?FORALL({X,T},{nat(),tree()},
+          equals(member(X,T),lists:member(X,to_list(T)))).
+
 prop_delete() ->
   ?FORALL(T,tree(),
           ?IMPLIES(T/=leaf,
