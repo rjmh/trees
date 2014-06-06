@@ -91,3 +91,7 @@ merge(L,leaf) ->
   L;
 merge({node,L,X,R},T) ->
   {node,L,X,merge(R,T)}.
+
+prop_lists_delete() ->
+  ?FORALL({X,L},{nat(),list(nat())},
+          not lists:member(X,lists:delete(X,L))).
