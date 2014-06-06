@@ -38,4 +38,4 @@ insert(X,{node,L,Y,R}) ->
 
 prop_insert() ->
   ?FORALL({X,T},{nat(),tree()},
-          ordered(insert(X,T))).
+          ordered(to_list(insert(X,T)))).
