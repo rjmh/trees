@@ -57,4 +57,12 @@ prop_delete() ->
     end).
 
 delete(_,leaf) ->
-  leaf.
+  leaf;
+delete(X,{node,L,Y,R}) ->
+  if X<Y ->
+      {node,delete(X,L),Y,R};
+     X>Y ->
+      {node,L,Y,delete(X,R)};
+     X==Y ->
+      L
+  end.
