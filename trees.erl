@@ -22,10 +22,10 @@ tree(Lo,Hi) when Hi < Lo ->
   leaf;
 tree(Lo, Hi) ->
   frequency([{1,leaf},
-             {2,?SHRINK(
-                   ?LET(X,choose(Lo,Hi),
-                        {node,tree(Lo,X-1),X,tree(X+1,Hi)}),
-                   [leaf])}]).
+             {2,?LET(X,choose(Lo,Hi),
+                     ?LET({L,R},{node,tree(Lo,X-1),tree(X+1,Hi)},
+                          ?SHRINK({node,L,X,R},
+                                   [leaf,L,R])))}]).
 
 insert(X,leaf) ->
   {node,leaf,X,leaf};
