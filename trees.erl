@@ -19,7 +19,7 @@ tree() ->
 
 tree(Lo,Hi) when Hi < Lo ->
   leaf;
-tree(Lo Hi) ->
+tree(Lo, Hi) ->
   frequency([{1,leaf},
              {2,?SHRINK(
                    ?LET(X,choose(Lo,Hi),
