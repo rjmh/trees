@@ -42,7 +42,7 @@ member(X,{node,L,Y,R}) ->
     X<Y ->
       member(X,R);
     X>Y ->
-      member(X,L)
+      member(X,R)
   end.
 
 %% %% insert
