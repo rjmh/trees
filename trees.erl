@@ -40,9 +40,9 @@ member(X,{node,L,Y,R}) ->
     X==Y ->
       true;
     X<Y ->
-      member(X,L);
+      member(X,R);
     X>Y ->
-      member(X,R)
+      member(X,L)
   end.
 
 %% insert
@@ -51,9 +51,8 @@ prop_insert() ->
   ?FORALL({X,T},{nat(),tree()},
     begin
       L = to_list(insert(X,T)),
-      ?WHENFAIL(io:format("L: ~p\n",[L]),
-                conjunction([{ordered,ordered(L)},
-                             {elements,L==lists:umerge([X],to_list(T))}]))
+      conjunction([{ordered,ordered(L)},
+                   {elements,L==lists:umerge([X],to_list(T))}])
     end).
 
 insert(X,leaf) ->
@@ -61,8 +60,6 @@ insert(X,leaf) ->
 insert(X,{node,L,Y,R}) ->
   if X<Y ->
       {node,insert(X,L),Y,R};
-     X==Y ->
-      {node,L,X,R};
-     X>Y ->
+     X>=Y ->
       {node,L,Y,insert(X,R)}
   end.
