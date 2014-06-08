@@ -37,12 +37,12 @@ member(_,leaf) ->
   false;
 member(X,{node,L,Y,R}) ->
   if 
+    X<Y ->
+      member(X,R);
     X==Y ->
       true;
-    X<Y ->
-      member(X,L);
     X>Y ->
-      member(X,R)
+      member(X,L)
   end.
 
 %% %% insert
