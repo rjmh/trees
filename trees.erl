@@ -40,7 +40,7 @@ member(X,{node,L,Y,R}) ->
     X==Y ->
       true;
     X<Y ->
-      member(X,R);
+      member(X,L);
     X>Y ->
       member(X,R)
   end.
