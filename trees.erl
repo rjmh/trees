@@ -45,24 +45,24 @@ member(X,{node,L,Y,R}) ->
       member(X,R)
   end.
 
-%% %% insert
+%% insert
 
-%% prop_insert() ->
-%%   ?FORALL({X,T},{nat(),tree()},
-%%     begin
-%%       L = to_list(insert(X,T)),
-%%       ?WHENFAIL(io:format("L: ~p\n",[L]),
-%%                 conjunction([{ordered,ordered(L)},
-%%                              {elements,L==lists:umerge([X],to_list(T))}]))
-%%     end).
+prop_insert() ->
+  ?FORALL({X,T},{nat(),tree()},
+    begin
+      L = to_list(insert(X,T)),
+      ?WHENFAIL(io:format("L: ~p\n",[L]),
+                conjunction([{ordered,ordered(L)},
+                             {elements,L==lists:umerge([X],to_list(T))}]))
+    end).
 
-%% insert(X,leaf) ->
-%%   {node,leaf,X,leaf};
-%% insert(X,{node,L,Y,R}) ->
-%%   if X<Y ->
-%%       {node,insert(X,L),Y,R};
-%%      X>Y ->
-%%       {node,L,Y,insert(X,R)};
-%%      X==Y ->
-%%       {node,L,Y,R}
-%%   end.
+insert(X,leaf) ->
+  {node,leaf,X,leaf};
+insert(X,{node,L,Y,R}) ->
+  if X<Y ->
+      {node,insert(X,L),Y,R};
+     X>Y ->
+      {node,L,Y,insert(X,R)};
+     X==Y ->
+      {node,L,Y,R}
+  end.
