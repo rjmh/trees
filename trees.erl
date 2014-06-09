@@ -59,6 +59,8 @@ insert(X,leaf) ->
 insert(X,{node,L,Y,R}) ->
   if X<Y ->
       {node,insert(X,L),Y,R};
-     X>=Y ->
+     X==Y ->
+      {node,L,X,R};
+     X>Y ->
       {node,L,Y,insert(X,R)}
   end.
