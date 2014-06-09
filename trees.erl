@@ -38,7 +38,7 @@ member(_,leaf) ->
 member(X,{node,L,Y,R}) ->
   if 
     X<Y ->
-      member(X,R);
+      member(X,L);
     X==Y ->
       true;
     X>Y ->
