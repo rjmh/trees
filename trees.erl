@@ -37,10 +37,10 @@ member(_,leaf) ->
   false;
 member(X,{node,L,Y,R}) ->
   if 
-    X<Y ->
-      member(X,L);
     X==Y ->
       true;
+    X<Y ->
+      member(X,L);
     X>Y ->
       member(X,R)
   end.
@@ -51,7 +51,9 @@ member(X,{node,L,Y,R}) ->
 %%   ?FORALL({X,T},{nat(),tree()},
 %%     begin
 %%       L = to_list(insert(X,T)),
-%%       equals(L,lists:umerge([X],to_list(T)))
+%%       ?WHENFAIL(io:format("L: ~p\n",[L]),
+%%                 conjunction([{ordered,ordered(L)},
+%%                              {elements,L==lists:umerge([X],to_list(T))}]))
 %%     end).
 
 %% insert(X,leaf) ->
@@ -59,6 +61,8 @@ member(X,{node,L,Y,R}) ->
 %% insert(X,{node,L,Y,R}) ->
 %%   if X<Y ->
 %%       {node,insert(X,L),Y,R};
-%%      X>=Y ->
-%%       {node,L,Y,insert(X,R)}
+%%      X>Y ->
+%%       {node,L,Y,insert(X,R)};
+%%      X==Y ->
+%%       {node,L,Y,R}
 %%   end.
